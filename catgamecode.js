@@ -2,53 +2,38 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 const healthBar = document.querySelector("progress");
 
-let points = 0;
-
-function increaseScore() {
-  if (healthBar.value > 0) {
-    points += 10;
-  }
-  document.getElementById("score").innerHTML = points;
-}
-
 class Sprite {
-  draw() {
-    ctx.fillStyle = this.color;
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.width, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.stroke();
-  }
 }
 
 class Player extends Sprite {
-  constructor(x, y, width, speed) {
+  constructor(x, y, speed) {
     super();
     this.image = new Image();
     this.image.src =
       "http://vignette2.wikia.nocookie.net/clubpenguin/images/b/b8/Clothing_Icons_5436.png/revision/latest?cb=20140418022827";
     Object.assign(this, { x, y, width, speed });
+    this.width = 42
   }
   draw() {
     ctx.drawImage(this.image, this.x, this.y, 75, 30);
   }
 }
 
-let player = new Player(250, 150, 15, 0.07);
+let player = new Player(250, 150, 0.07);
 
 class Enemy extends Sprite {
-  constructor(x, y, width, speed) {
+  constructor(x, y, speed) {
     super();
     this.image = new Image();
     this.image.src =
       "https://www.jamiesale-cartoonist.com/wp-content/uploads/cartoon-cat-free.png";
-    Object.assign(this, { x, y, width, speed });
+    Object.assign(this, { x, y, speed });
+    this.width = 20;
   }
   draw() {
     ctx.drawImage(this.image, this.x, this.y, 100, 50);
   }
 }
-
 let enemies;
 
 let mouse = { x: 0, y: 0 };
@@ -57,14 +42,6 @@ function updateMouse(event) {
   const { left, top } = canvas.getBoundingClientRect();
   mouse.x = event.clientX - left;
   mouse.y = event.clientY - top;
-}
-
-function startGame() {
-  if (healthBar.value === 0) {
-    healthBar.value = 100;
-    Object.assign(player, { x: canvas.width / 2, y: canvas.height / 2 });
-    requestAnimationFrame(drawScene);
-  }
 }
 
 function moveToward(leader, follower, speed) {
@@ -84,6 +61,14 @@ function pushOff(c1, c2) {
     c2.x += dx * distToMove / 2;
     c2.y += dy * distToMove / 2;
   }
+}
+
+let points = 0;
+function increaseScore() {
+  if (healthBar.value > 0) {
+    points += 10;
+  }
+  document.getElementById("score").innerHTML = points;
 }
 
 function distanceBetween(sprite1, sprite2) {
@@ -142,9 +127,9 @@ function restartGame() {
   healthBar.value = 100;
   Object.assign(player, { x: canvas.width / 2, y: canvas.height / 2 });
   enemies = [
-    new Enemy(200, 10, 15, 0.02),
-    new Enemy(0, 325, 15, 0.03),
-    new Enemy(400, 325, 15, 0.04)
+    new Enemy(200, 10, 0.02),
+    new Enemy(0, 325, 0.03),
+    new Enemy(400, 325, 0.04)
   ];
   requestAnimationFrame(drawScene);
 }
