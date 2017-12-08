@@ -136,6 +136,10 @@ function drawDeathScreen() {
 
 function restartGame() {
   canvas.removeEventListener("click", restartGame);
+  clearInterval();
+  setInterval(increaseScore, 1000);
+  points = 0;
+  document.getElementById("score").innerHTML = points;
   healthBar.value = 100;
   Object.assign(player, { x: canvas.width / 2, y: canvas.height / 2 });
   enemies = [
@@ -159,6 +163,4 @@ function drawScene() {
 }
 
 
-requestAnimationFrame(drawStartScreen());
-requestAnimationFrame(drawScene);
-setInterval(increaseScore, 1000);
+drawStartScreen();
