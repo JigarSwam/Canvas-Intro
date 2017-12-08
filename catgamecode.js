@@ -132,12 +132,11 @@ function drawDeathScreen() {
   ctx.font = "20px";
   ctx.fillText("click to restart", canvas.width / 2, canvas.height / 2 + 40);
   canvas.addEventListener("click", restartGame);
+  clearInterval();
 }
 
 function restartGame() {
   canvas.removeEventListener("click", restartGame);
-  clearInterval();
-  setInterval(increaseScore, 1000);
   points = 0;
   document.getElementById("score").innerHTML = points;
   healthBar.value = 100;
@@ -162,5 +161,5 @@ function drawScene() {
   }
 }
 
-
+setInterval(increaseScore, 1000);
 drawStartScreen();
