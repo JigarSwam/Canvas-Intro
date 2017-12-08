@@ -11,7 +11,7 @@ class Player extends Sprite {
     this.image = new Image();
     this.image.src =
       "http://vignette2.wikia.nocookie.net/clubpenguin/images/b/b8/Clothing_Icons_5436.png/revision/latest?cb=20140418022827";
-    Object.assign(this, { x, y, width, speed });
+    Object.assign(this, { x, y, speed });
     this.width = 42
   }
   draw() {
