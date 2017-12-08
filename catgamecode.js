@@ -6,7 +6,7 @@ let points = 0;
 
 function increaseScore() {
   if (healthBar.value > 0) {
-    points += 1;
+    points += 10;
   }
   document.getElementById("score").innerHTML = points;
 }
