@@ -142,10 +142,10 @@ function restartGame() {
   healthBar.value = 100;
   Object.assign(player, { x: canvas.width / 2, y: canvas.height / 2 });
   enemies = [
-  new Enemy(200, 10, 15, 0.02),
-  new Enemy(0, 325, 15, 0.03),
-  new Enemy(400, 325, 15, 0.04)
-];
+    new Enemy(200, 10, 15, 0.02),
+    new Enemy(0, 325, 15, 0.03),
+    new Enemy(400, 325, 15, 0.04)
+  ];
   requestAnimationFrame(drawScene);
 }
 
