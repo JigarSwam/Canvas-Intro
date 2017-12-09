@@ -2,6 +2,14 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 const healthBar = document.querySelector("progress");
 
+let points = 0;
+function increaseScore() {
+  if (healthBar.value > 0) {
+    points += 10;
+  }
+  document.getElementById("score").innerHTML = points;
+}
+
 class Sprite {
 }
 
@@ -63,14 +71,6 @@ function pushOff(c1, c2) {
   }
 }
 
-let points = 0;
-function increaseScore() {
-  if (healthBar.value > 0) {
-    points += 10;
-  }
-  document.getElementById("score").innerHTML = points;
-}
-
 function distanceBetween(sprite1, sprite2) {
   return Math.hypot(sprite1.x - sprite2.x, sprite1.y - sprite2.y);
 }
@@ -79,8 +79,7 @@ function haveCollided(sprite1, sprite2) {
   return distanceBetween(sprite1, sprite2) < sprite1.width + sprite2.width;
 }
 
-function updateScene() {
-  moveToward(mouse, player, player.speed);
+function updateEnemies() {
   enemies.forEach(enemy => moveToward(player, enemy, enemy.speed));
   enemies.forEach((enemy, i) =>
     pushOff(enemy, enemies[(i + 1) % enemies.length])
@@ -90,6 +89,11 @@ function updateScene() {
       healthBar.value -= 2;
     }
   });
+}
+
+function updateScene() {
+  moveToward(mouse, player, player.speed);
+  updateEnemies();
 }
 
 function clearBackground() {
